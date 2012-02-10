@@ -105,6 +105,17 @@ function validateConfiguration() {
 	return undefined;
 }
 
+function parseResults(jsontext) {
+	var results = JSON.parse(jsontext);
+	for (var i in results) {
+		var candidates = results[i];
+		for (var j in candidates) {
+			var word = candidates[j];
+			alert(word);
+		}
+	}
+}
+
 function sendRequests(arg, callback) {
 	var config = arg['config'];
 	var pricise = arg['pricise'];
@@ -116,7 +127,7 @@ function sendRequests(arg, callback) {
 	}
 	
 	var request = $.ajax({
-		url: 'opencc.php',
+		url: 'http://www.byvoid.com/application/opencc-web/opencc.php',
 		type: 'POST',
 		data: {
 			text: text,
@@ -171,7 +182,11 @@ function doConvert(event) {
 				modal: true,
 			});
 		} else {
-			$('#text').val(text);
+			if (pricise) {
+				parseResults(text);
+			} else {
+				$('#text').val(text);
+			}
 		}
 		resetProgress();
 	});
