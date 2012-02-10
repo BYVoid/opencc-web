@@ -105,44 +105,45 @@ function validateConfiguration() {
 	return undefined;
 }
 
-function sendRequests(conf, callback) {
-	if (conf === true) {
-		window.setTimeout(callback, 500);
-	} else {
-		var text = $('#text').val();
-		
-		if (text.length > 10240) {
-			callback('文字內容過長，請使用本地版本轉換。');
-			return;
-		}
-		
-		var request = $.ajax({
-			url: 'opencc.php',
-			type: 'POST',
-			data: {
-				text: text,
-				config: conf,
-				client: "<?php echo $_SERVER['REMOTE_ADDR'] ?>"
-			},
-		});
-
-		request.done(function(msg) {
-			callback(undefined, msg);
-		});
-
-		request.fail(function(jqXHR, textStatus) {
-			callback(textStatus);
-		});
+function sendRequests(arg, callback) {
+	var config = arg['config'];
+	var pricise = arg['pricise'];
+	var text = $('#text').val();
+	
+	if (text.length > 10240) {
+		callback('文字內容過長，請使用本地版本轉換。');
+		return;
 	}
+	
+	var request = $.ajax({
+		url: 'opencc.php',
+		type: 'POST',
+		data: {
+			text: text,
+			config: config,
+			pricise: pricise,
+			client: "<?php echo $_SERVER['REMOTE_ADDR'] ?>"
+		},
+	});
+
+	request.done(function(msg) {
+		callback(undefined, msg);
+	});
+
+	request.fail(function(jqXHR, textStatus) {
+		callback(textStatus);
+	});
 }
 
-function doConvert() {
+function doConvert(event) {
+	var pricise = event.data && event.data['precise'];
+
 	$('#convert').button('disable');
 	$('#text').attr('readonly', 'readonly');
 	$('#text').fadeTo('fast', 0.5);
 
-	var conf = validateConfiguration();
-	if (!conf) {
+	var config = validateConfiguration();
+	if (!config) {
 		$('#dialog-config-error').dialog({
 			height: 140,
 			modal: true
@@ -151,12 +152,15 @@ function doConvert() {
 		return;
 	}
 	
-	if (conf === true) {
+	if (config === true) {
 		resetProgress();
 		return;
 	}
 
-	sendRequests(conf, function(err, text) {
+	sendRequests({
+		config: config,
+		pricise: pricise,
+	}, function(err, text) {
 		if (err) {
 			if (err == 'error') {
 				err = '請求發送失敗。';
@@ -186,6 +190,7 @@ $(function() {
 	$('#variant-type').buttonset();
 	$('#region-phrase-type').buttonset();
 	$('#convert').button();
+	$('#precise-convert').button();
 	
 	$('#tar-type-simp').click(function() {
 		$('#variant-type').hide('fast');
@@ -196,4 +201,7 @@ $(function() {
 	
 	$('#text').width('100%');
 	$('#convert').click(doConvert);
+	$('#precise-convert').click({
+		precise: true,
+	}, doConvert);
 });

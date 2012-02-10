@@ -195,7 +195,14 @@
 		</div>
 		<textarea id="text"></textarea>
 		<div>
-			<button id="convert">開始轉換</button>
+			<button id="convert">快速轉換</button>
+			<button id="precise-convert">精細轉換</button>
+		</div>
+		<div id="dialog-config-error" title="無效配置" style="display:none;">
+			<p>您選擇的轉換模式是無效的。</p>
+		</div>
+		<div id="dialog-request-error" title="轉換失敗" style="display:none;">
+			<p></p>
 		</div>
 	</div>
 	<div id="main-tabs-download">
@@ -220,13 +227,7 @@
 	</div>
 </div>
 
-<div id="dialog-config-error" title="無效配置" style="display:none;">
-	<p>您選擇的轉換模式是無效的。</p>
-</div>
 
-<div id="dialog-request-error" title="轉換失敗" style="display:none;">
-	<p></p>
-</div>
 
 <div id="tongji_code" style="display:none;"><script type="text/javascript" src="/tongji.js"></script></div>
 
