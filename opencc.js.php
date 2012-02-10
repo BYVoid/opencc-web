@@ -109,9 +109,11 @@ function parseResults(jsontext) {
 	var results = JSON.parse(jsontext);
 	for (var i in results) {
 		var candidates = results[i];
-		for (var j in candidates) {
+		var orig = candidates[0];
+		var candidates_len = candidates.length;
+		for (var j = 1; j < candidates_len; j++) {
 			var word = candidates[j];
-			alert(word);
+			
 		}
 	}
 }

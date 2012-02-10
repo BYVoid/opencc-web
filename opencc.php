@@ -24,7 +24,7 @@ function convert_precise($text_in, $config)
 			if ($blank)
 			{
 				$blank = false;
-				$results []= array(' ');
+				$results []= array(' ', ' ');
 			}
 			else
 			{
@@ -33,7 +33,13 @@ function convert_precise($text_in, $config)
 			continue;
 		}
 		$res = opencc_convert($od, $word);
-		$results []= explode(' ', $res);
+		$res_sec = explode(' ', $res);
+		$res = array($word);
+		foreach ($res_sec as $word)
+		{
+			$res []= $word;
+		}
+		$results []= $res;
 	}
 	opencc_close($od);
 	return json_encode($results);
