@@ -48,9 +48,10 @@
 	#proof {
 		width: 100%;
 		height: 200px;
-		border: 1 solid;
+		background-color: #EEEEEE;
 		overflow-x: hidden;
 		overflow-y: auto;
+		display: none;
 	}
 	
 	#proof a{
@@ -76,7 +77,11 @@
 	}
 	
 	.multicorrespond {
-		background-color: #FFBBBB;
+		background-color: #FFC6B7;
+	}
+
+	.fixedmulticorrespond {
+		background-color: #2BC6EB;
 	}
 </style>
 
@@ -228,15 +233,14 @@
 		</div>
 		<textarea id="text"></textarea>
         
-        <div id="proof">
-        <span id="word_0" class="multicorrespond"><a href="#">不准</a></span><span id="word_1" class="singlecorrespond"><a href="#">说</a></span>
-        </div>
+        <div id="proof"></div>
         <div id="selector">
         <ul></ul>
         </div>
 		<div>
 			<button id="convert">快速轉換</button>
 			<button id="precise-convert">精細轉換</button>
+			<button id="new-convert">新轉換</button>
 		</div>
 		<div id="dialog-config-error" title="無效配置" style="display:none;">
 			<p>您選擇的轉換模式是無效的。</p>

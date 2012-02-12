@@ -107,27 +107,35 @@ function validateConfiguration() {
 
 function parseResults(jsontext) {
 	var res = JSON.parse(jsontext);
-	$('#proof').html('');
+	var proof = $('#proof');
+
+	proof.html('');
 	for (var i in res) {
 		var candidates = res[i];
 		var orig = candidates[0];
-		var candidates_len = candidates.length;
-		if (candidates_len > 1) {
-			for (var j = 1; j < candidates_len; j++) {
-				var word = candidates[j];
-				$('#proof').append('<span id="word_'
-					+ i + '" class="multicorrespond"><a href="#">'
-					+ word + '</a></span>'
-				);
-			}
-		} else {
-			$('#proof').append('<span id="word_'
-				+ i + '" class="singlecorrespond"><a href="#">'
-				+ candidates[0] + '</a></span>'
-			);
+		if (orig == '\n') {
+			proof.append('<br />');
+			continue;
 		}
+		if (orig == ' ') {
+			proof.append('&nbsp;');
+			continue;
+		}
+		if (orig == '\t') {
+			proof.append('&nbsp;&nbsp;&nbsp;&nbsp;');
+			continue;
+		}
+		var def = candidates[1];
+		var spanId = 'word_' + i;
+		proof.append('<span id="' + spanId + '"><a href="#"></a></span>');
+		var newSpan = $('#' + spanId, proof);
+		if (candidates.length > 2) {
+			newSpan.addClass('multicorrespond');
+		} else {
+			newSpan.addClass('singlecorrespond');
+		}
+		$('a', newSpan).text(def);
 	}
-	
 	var wordCount = res.length;
 	for (var i = 0; i < wordCount; i++) {
 		$('#proof #word_' + i + ' a').click({
@@ -152,7 +160,10 @@ function parseResults(jsontext) {
 				function(event) {
 					var index = event.data.index;
 					var selCand = candidates[index];
-					$('#proof #word_' + id + ' a').html(selCand);
+					var span = $('#proof #word_' + id);
+					span.addClass('fixedmulticorrespond');
+					span.removeClass('multicorrespond');
+					$('a', span).html(selCand);
 					selDialog.dialog('close');
 				});
 			}
@@ -199,6 +210,7 @@ function doConvert(event) {
 	var pricise = event.data && event.data['precise'];
 
 	$('#convert').button('disable');
+	$('#precise-convert').button('disable');
 	$('#text').attr('readonly', 'readonly');
 	$('#text').fadeTo('fast', 0.5);
 
@@ -232,7 +244,13 @@ function doConvert(event) {
 			});
 		} else {
 			if (pricise) {
+				$('#proof').show('fast');
+				$('#text').hide();
+				$('#convert').hide('fast');
+				$('#precise-convert').hide('fast');
+				$('#new-convert').show('fast');
 				parseResults(text);
+				return;
 			} else {
 				$('#text').val(text);
 			}
@@ -245,6 +263,11 @@ function resetProgress() {
 	$('#text').fadeTo('fast', 1);
 	$('#text').removeAttr('readonly');
 	$('#convert').button('enable');
+	$('#precise-convert').button('enable');
+	$('#convert').show();
+	$('#precise-convert').show();
+	$('#new-convert').hide();
+        $('#proof').hide();
 }
 
 $(function() {
@@ -255,7 +278,8 @@ $(function() {
 	$('#region-phrase-type').buttonset();
 	$('#convert').button();
 	$('#precise-convert').button();
-	
+	$('#new-convert').button();
+
 	$('#tar-type-simp').click(function() {
 		$('#variant-type').hide('fast');
 	});
@@ -268,4 +292,5 @@ $(function() {
 	$('#precise-convert').click({
 		precise: true,
 	}, doConvert);
+	$('#new-convert').click(resetProgress).hide();
 });
