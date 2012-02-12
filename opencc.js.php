@@ -106,15 +106,62 @@ function validateConfiguration() {
 }
 
 function parseResults(jsontext) {
-	var results = JSON.parse(jsontext);
-	for (var i in results) {
-		var candidates = results[i];
+	var res = JSON.parse(jsontext);
+	$('#proof').html('');
+	for (var i in res) {
+		var candidates = res[i];
 		var orig = candidates[0];
 		var candidates_len = candidates.length;
-		for (var j = 1; j < candidates_len; j++) {
-			var word = candidates[j];
-			
+		if (candidates_len > 1) {
+			for (var j = 1; j < candidates_len; j++) {
+				var word = candidates[j];
+				$('#proof').append('<span id="word_'
+					+ i + '" class="multicorrespond"><a href="#">'
+					+ word + '</a></span>'
+				);
+			}
+		} else {
+			$('#proof').append('<span id="word_'
+				+ i + '" class="singlecorrespond"><a href="#">'
+				+ candidates[0] + '</a></span>'
+			);
 		}
+	}
+	
+	var wordCount = res.length;
+	for (var i = 0; i < wordCount; i++) {
+		$('#proof #word_' + i + ' a').click({
+			id: i,
+		}, function(event) {
+			var id = event.data.id;
+			var candidates = res[id];
+			var original = candidates[0];
+		
+			var selDialog = $('#selector');
+			var candList = $('ul', selDialog);
+			
+			candList.html('');
+			for (var j = 1; j < candidates.length; j++) {
+				var cand = candidates[j];
+				candList.append('<li><button id="' + j + '">' + cand + '</button></li>');
+				var btn = $('button', candList).last();
+				btn.button();
+				btn.click({
+					index: j,
+				},
+				function(event) {
+					var index = event.data.index;
+					var selCand = candidates[index];
+					$('#proof #word_' + id + ' a').html(selCand);
+					selDialog.dialog('close');
+				});
+			}
+			
+			selDialog.dialog({
+				'title': original
+			});
+			return false;
+		});
 	}
 }
 
