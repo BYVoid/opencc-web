@@ -11,3 +11,7 @@ http://opencc.byvoid.com
     npm install
     node app.js
 
+## OpenCC
+
+https://github.com/BYVoid/OpenCC
+
