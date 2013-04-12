@@ -1,0 +1,67 @@
+body {
+  font-size: 14px;
+  font-family: MingLiU, serif;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+img {
+  border: none;
+}
+#header {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-family: Minglan, "微軟正黑體", sans-serif;
+}
+#header a {
+  color: #444444;
+  text-decoration: none;
+}
+#header h1 {
+  font-size: 40px;
+}
+#text {
+  border: 1px solid;
+  height: 200px;
+  margin-bottom: 5px;
+}
+.option {
+  margin-bottom: 5px;
+}
+#proof {
+  width: 100%;
+  height: 200px;
+  background-color: #EEEEEE;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: none;
+}
+
+#proof a{
+  color: #000000;
+  text-decoration: none;
+}
+
+#selector {
+  display: none;
+}
+
+#selector ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+#candidates {
+  display: none;
+}
+
+.singlecorrespond {
+}
+
+.multicorrespond {
+  background-color: #FFC6B7;
+}
+
+.fixedmulticorrespond {
+  background-color: #2BC6EB;
+}
