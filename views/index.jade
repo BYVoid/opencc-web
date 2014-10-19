@@ -4,17 +4,7 @@ block content
   div#main-tabs
     ul
       li
-        a(href='#main-tabs-overview') 概述
-      li
-        a(href='#main-tabs-intro') 詳細介紹
-      li
         a(href='#main-tabs-conversion') 在線轉換
-      li
-        a(href='#main-tabs-download') 下載
-    div#main-tabs-overview
-      !=overview
-    div#main-tabs-intro
-      !=intro
     div#main-tabs-conversion
       div#orig-type.option
         | 原文
@@ -22,8 +12,6 @@ block content
         label(for='orig-type-simp') 簡體
         input#orig-type-trad(type='radio',name='orig-type',value='trad')
         label(for='orig-type-trad') 繁體
-        input#orig-type-mixed(type='radio',name='orig-type',value='mixed')
-        label(for='orig-type-mixed') 簡繁混雜
       div#tar-type.option
         | 目標
         input#tar-type-simp(type='radio',name='tar-type',value="simp")
@@ -36,12 +24,14 @@ block content
         label(for='variant-type-opencc') OpenCC標準
         input#variant-type-taiwan(type='radio',name='variant-type',value="taiwan")
         label(for='variant-type-taiwan') 臺灣標準
+        input#variant-type-hongkong(type='radio',name='variant-type',value="hongkong")
+        label(for='variant-type-hongkong') 香港標準
       div#idiom-type.option
         | 地域用詞轉換
         input#idiom-type-disabled(type='radio',name='idiom-type',checked='checked',value="disabled")
         label(for='idiom-type-disabled') 不轉換
         input#idiom-type-mainland(type='radio',name='idiom-type',value="mainland")
-        label(for='idiom-type-mainland') 大陸模式
+        label(for='idiom-type-mainland') 中國大陸模式
         input#idiom-type-taiwan(type='radio',name='idiom-type',value="taiwan")
         label(for='idiom-type-taiwan') 臺灣模式
       textarea#text
@@ -49,13 +39,12 @@ block content
       div#selector
         ul
       div
-        button#convert 快速轉換
-        button#precise-convert 精細轉換
+        button#convert 轉換
         button#new-convert 新轉換
       div#dialog-config-error(title='無效配置',style='display:none;')
         p 您選擇的轉換模式是無效的。
       div#dialog-request-error(title='轉換失敗',style='display:none;')
         p
-    div#main-tabs-download
-      !=download
+      p
+        a(href="https://github.com/BYVoid/OpenCC") 關於OpenCC
   script(src="/js/opencc.js")

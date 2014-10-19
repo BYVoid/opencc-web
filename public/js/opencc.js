@@ -3,6 +3,7 @@ function validateConfiguration() {
   var tar = $('input[name=tar-type]:checked').val();
   var variant = $('input[name=variant-type]:checked').val();
   var idiom = $('input[name=idiom-type]:checked').val();
+
   if (orig === 'simp') {
     if (tar === 'simp') {
       //簡體到簡體
@@ -13,23 +14,32 @@ function validateConfiguration() {
         //OpenCC異體字
         if (idiom === 'disabled') {
           //不轉換詞彙
-          return 'zhs2zht.ini';
+          return 's2t.json';
         } else if (idiom === 'mainland') {
           //大陸詞彙(TODO)
         } else if (idiom === 'taiwan') {
-          //臺灣詞彙
-          return 'zhs2zhtw_p.ini';
+          //臺灣詞彙(TODO)
         }
       } else if (variant === 'taiwan') {
         //臺灣異體字
         if (idiom === 'disabled') {
           //不轉換詞彙
-          return 'zhs2zhtw_v.ini';
+          return 's2tw.json';
         } else if (idiom === 'mainland') {
           //大陸詞彙(TODO)
         } else if (idiom === 'taiwan') {
           //臺灣詞彙
-          return 'zhs2zhtw_vp.ini';
+          return 's2twp.json';
+        }
+      } else if (variant === 'hongkong') {
+        // 香港異體字
+        if (idiom === 'disabled') {
+          //不轉換詞彙
+          return 's2hk.json';
+        } else if (idiom === 'mainland') {
+          //大陸詞彙(TODO)
+        } else if (idiom === 'taiwan') {
+          //臺灣詞彙(TODO)
         }
       }
     }
@@ -38,10 +48,10 @@ function validateConfiguration() {
       //繁體到簡體
       if (idiom === 'disabled') {
         //不轉換詞彙
-        return 'zht2zhs.ini';
+        return 't2s.json';
       } else if (idiom === 'mainland') {
         //大陸詞彙
-        return 'zhtw2zhcn_s.ini';
+        return 'tw2sp.json';
       } else if (idiom === 'taiwan') {
         //臺灣詞彙（TODO）
       }
@@ -54,54 +64,17 @@ function validateConfiguration() {
           return true;
         } else if (idiom === 'mainland') {
           //大陸詞彙
-          return 'zhtw2zhcn_t.ini';
         } else if (idiom === 'taiwan') {
           //臺灣詞彙
-          return 'zht2zhtw_p.ini';
         }
       } else if (variant === 'taiwan') {
         //臺灣異體字
         if (idiom === 'disabled') {
           //不轉換詞彙
-          return 'zht2zhtw_v.ini';
         } else if (idiom === 'mainland') {
           //大陸詞彙(TODO)
         } else if (idiom === 'taiwan') {
           //臺灣詞彙
-          return 'zht2zhtw_vp.ini';
-        }
-      }
-    }
-  } else if (orig === 'mixed') {
-    //簡繁混雜
-    if (tar === 'simp') {
-      if (idiom === 'disabled') {
-        //不轉換詞彙
-        return 'mix2zhs.ini';
-      } else if (idiom === 'mainland') {
-        //大陸詞彙（TODO）
-      } else if (idiom === 'taiwan') {
-        //臺灣詞彙（TODO）
-      }
-    } else if (tar === 'trad') {
-      if (variant === 'opencc') {
-        //OpenCC異體字
-        if (idiom === 'disabled') {
-          //不轉換詞彙
-          return 'mix2zht.ini';
-        } else if (idiom === 'mainland') {
-          //大陸詞彙(TODO)
-        } else if (idiom === 'taiwan') {
-          //臺灣詞彙(TODO)
-        }
-      } else if (variant === 'taiwan') {
-        //臺灣異體字
-        if (idiom === 'disabled') {
-          //不轉換詞彙(TODO)
-        } else if (idiom === 'mainland') {
-          //大陸詞彙(TODO)
-        } else if (idiom === 'taiwan') {
-          //臺灣詞彙(TODO)
         }
       }
     }
