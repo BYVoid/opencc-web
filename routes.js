@@ -2,16 +2,8 @@ var opencc = require('opencc');
 var marked = require('marked');
 var fs = require('fs');
 
-var overviewText = marked(fs.readFileSync('views/overview.md', 'utf-8'));
-var introText = marked(fs.readFileSync('views/intro.md', 'utf-8'));
-var downloadText = marked(fs.readFileSync('views/download.md', 'utf-8'));
-
 exports.index = function (req, res) {
-  res.render('index', {
-    overview: overviewText,
-    intro: introText,
-    download: downloadText
-  });
+  res.render('index');
 };
 
 exports.convert = function(req, res) {
