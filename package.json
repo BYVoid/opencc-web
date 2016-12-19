@@ -8,7 +8,7 @@
   "dependencies": {
     "express": "3.4.7",
     "jade": "1.0.0",
-    "opencc": "1.0.1",
-    "marked": "0.3.0"
+    "opencc": "1.0.4",
+    "marked": "0.3.6"
   }
 }
