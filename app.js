@@ -1,22 +1,24 @@
-var express = require('express');
-var routes = require('./routes');
-var http = require('http');
-var path = require('path');
+const bodyParser = require('body-parser');
+const errorhandler = require('errorhandler');
+const express = require('express');
+const favicon = require('serve-favicon');
+const http = require('http');
+const path = require('path');
+const serveStatic = require('serve-static');
 
-var app = express();
+const routes = require('./routes');
+
+const app = express();
 app.set('port', process.env.PORT || 3721);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(express.favicon(path.join(__dirname, 'public', 'img', 'byvoid.ico')));
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public', 'img', 'byvoid.ico')));
+app.use(bodyParser.urlencoded());
+app.use(serveStatic(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+  app.use(errorhandler());
 }
 
 app.get('/', routes.index);

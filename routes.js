@@ -1,6 +1,6 @@
-var opencc = require('opencc');
-var marked = require('marked');
-var fs = require('fs');
+const opencc = require('opencc');
+const marked = require('marked');
+const fs = require('fs');
 
 exports.index = function (req, res) {
   res.render('index');
