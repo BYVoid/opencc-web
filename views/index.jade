@@ -9,15 +9,19 @@ block content
       div#orig-type.option
         | 原文
         input#orig-type-simp(type='radio',name='orig-type',checked='checked',value='simp')
-        label(for='orig-type-simp') 簡體
+        label(for='orig-type-simp') 簡體中文
         input#orig-type-trad(type='radio',name='orig-type',value='trad')
-        label(for='orig-type-trad') 繁體
+        label(for='orig-type-trad') 繁體中文
+        input#orig-type-jpshinjitai(type='radio',name='orig-type',value='jpshinjitai')
+        label(for='orig-type-jpshinjitai') 日文新字體
       div#tar-type.option
         | 目標
         input#tar-type-simp(type='radio',name='tar-type',value="simp")
-        label(for='tar-type-simp') 簡體
+        label(for='tar-type-simp') 簡體中文
         input#tar-type-trad(type='radio',name='tar-type',checked='checked',value="trad")
-        label(for='tar-type-trad') 繁體
+        label(for='tar-type-trad') 繁體中文
+        input#tar-type-jpshinjitai(type='radio',name='tar-type',value="jpshinjitai")
+        label(for='tar-type-jpshinjitai') 日文新字體
       div#variant-type.option
         | 異體字轉換
         input#variant-type-opencc(type='radio',name='variant-type',checked='checked',value="opencc")

@@ -71,12 +71,31 @@ function validateConfiguration() {
         //臺灣異體字
         if (idiom === 'disabled') {
           //不轉換詞彙
+          return 't2tw.json';
         } else if (idiom === 'mainland') {
           //大陸詞彙(TODO)
         } else if (idiom === 'taiwan') {
           //臺灣詞彙
         }
+      } else if (variant === 'hongkong') {
+        // 香港異體字
+        if (idiom === 'disabled') {
+          //不轉換詞彙
+          return 't2hk.json';
+        } else if (idiom === 'mainland') {
+          //大陸詞彙(TODO)
+        } else if (idiom === 'taiwan') {
+          //臺灣詞彙(TODO)
+        }
       }
+    } else if (tar === 'jpshinjitai') {
+      // 繁體 -> 日文新字體
+      return 't2jp.json';
+    }
+  } else if (orig === 'jpshinjitai') {
+    if (tar === 'trad') {
+      // 日文新字體 -> 繁體
+      return 'jp2t.json';
     }
   }
   return undefined;
@@ -117,14 +136,14 @@ function parseResults(jsontext) {
   for (var i = 0; i < wordCount; i++) {
     $('#proof #word_' + i + ' a').click({
       id: i,
-    }, function(event) {
+    }, function (event) {
       var id = event.data.id;
       var candidates = res[id];
       var original = candidates[0];
-    
+
       var selDialog = $('#selector');
       var candList = $('ul', selDialog);
-      
+
       candList.html('');
       for (var j = 1; j < candidates.length; j++) {
         var cand = candidates[j];
@@ -134,17 +153,16 @@ function parseResults(jsontext) {
         btn.click({
           index: j,
         },
-        function(event) {
-          var index = event.data.index;
-          var selCand = candidates[index];
-          var span = $('#proof #word_' + id);
-          span.addClass('fixedmulticorrespond');
-          span.removeClass('multicorrespond');
-          $('a', span).html(selCand);
-          selDialog.dialog('close');
-        });
+          function (event) {
+            var index = event.data.index;
+            var selCand = candidates[index];
+            var span = $('#proof #word_' + id);
+            span.addClass('fixedmulticorrespond');
+            span.removeClass('multicorrespond');
+            $('a', span).html(selCand);
+            selDialog.dialog('close');
+          });
       }
-      
       selDialog.dialog({
         'title': original
       });
@@ -173,11 +191,11 @@ function sendRequests(arg, callback) {
     },
   });
 
-  request.done(function(msg) {
+  request.done(function (msg) {
     callback(undefined, msg);
   });
 
-  request.fail(function(jqXHR, textStatus) {
+  request.fail(function (jqXHR, textStatus) {
     callback(textStatus);
   });
 }
@@ -199,7 +217,7 @@ function doConvert(event) {
     resetProgress();
     return;
   }
-  
+
   if (config === true) {
     resetProgress();
     return;
@@ -208,7 +226,7 @@ function doConvert(event) {
   sendRequests({
     config: config,
     precise: precise,
-  }, function(err, text) {
+  }, function (err, text) {
     if (err) {
       if (err == 'error') {
         err = '請求發送失敗。';
@@ -246,7 +264,7 @@ function resetProgress() {
   $('#proof').hide();
 }
 
-$(function() {
+$(function () {
   $('#main-tabs').tabs();
   $('#orig-type').buttonset();
   $('#tar-type').buttonset();
@@ -256,13 +274,19 @@ $(function() {
   $('#precise-convert').button();
   $('#new-convert').button();
 
-  $('#tar-type-simp').click(function() {
+  $('#tar-type-simp').click(function () {
     $('#variant-type').hide('fast');
+    $('#idiom-type').show('fast');
   });
-  $('#tar-type-trad').click(function() {
+  $('#tar-type-trad').click(function () {
     $('#variant-type').show('fast');
+    $('#idiom-type').show('fast');
   });
-  
+  $('#tar-type-jpshinjitai').click(function () {
+    $('#variant-type').hide('fast');
+    $('#idiom-type').hide('fast');
+  });
+
   $('#text').width('100%');
   $('#convert').click({
     precise: 0,
