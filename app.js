@@ -11,7 +11,7 @@ const routes = require('./routes');
 const app = express();
 app.set('port', process.env.PORT || 3721);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.use(favicon(path.join(__dirname, 'public', 'img', 'byvoid.ico')));
 app.use(bodyParser.urlencoded());
 app.use(serveStatic(path.join(__dirname, 'public')));
