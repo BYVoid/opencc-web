@@ -10,8 +10,8 @@
     "errorhandler": "^1.5.1",
     "express": "4.17.1",
     "marked": "0.8.2",
-    "opencc": "1.0.6",
-    "pug": "^2.0.4",
+    "opencc": "^1.1.2",
+    "pug": "^3.0.1",
     "serve-favicon": "^2.5.0",
     "serve-static": "^1.14.1"
   }
