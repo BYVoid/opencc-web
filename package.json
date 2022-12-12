@@ -8,7 +8,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "errorhandler": "^1.5.1",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "marked": "0.8.2",
     "opencc": "^1.1.2",
     "pug": "^3.0.1",
